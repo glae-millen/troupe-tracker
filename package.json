@@ -1,0 +1,27 @@
+{
+  "name": "troupe-tracker",
+  "version": "0.0.1-pre",
+  "description": "Troupe progress tracker",
+  "main": "index.js",
+  "dependencies": {
+    "async-limiter": "^2.0.0",
+    "discord.js": "^12.2.0",
+    "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
+    "discordjs-prompter": "^2.0.4",
+    "dotenv": "^8.2.0"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glae-millen/troupe-tracker.git"
+  },
+  "author": "glae-millen",
+  "license": "ISC"
+}
