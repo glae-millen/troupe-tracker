@@ -1,6 +1,8 @@
+// Version tracking
+const version = "0.0.1-a"
+
 // Initialize environment variables
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 // Initialize dependencies
 const Discord = require("discord.js");
@@ -17,7 +19,7 @@ const aliases = require("./resources/aliases.json");
 // Initialize the Commando client
 const client = new CommandoClient(
 {
-	commandPrefix: `f.`,
+	commandPrefix: process.env.PREFIX ?? 'f.',
 	owner: process.env.OWNER_ID,
   disableMentions: 'everyone',
 });
