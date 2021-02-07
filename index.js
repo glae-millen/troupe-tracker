@@ -1,32 +1,34 @@
-// index.js
+// Initialize environment variables
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Initialize dependencies
 const Discord = require("discord.js");
 const { CommandoClient } = require('discord.js-commando');
+const { DateTime } = require("luxon");
 
 const path = require('path');
 const fetch = require('node-fetch');
 const fs = require('fs');
-const dotenv = require('dotenv');
 
-const handler = require("./handler.js");
-
-// Initialize .env
-dotenv.config();
+const handler = require("./resources/handler.js");
+const aliases = require("./resources/aliases.json");
 
 // Initialize the Commando client
 const client = new CommandoClient(
 {
 	commandPrefix: `f.`,
 	owner: process.env.OWNER_ID,
-  disableEveryone: true,
+  disableMentions: 'everyone',
 });
 
 // Bind dependencies to client for sub-unit usage
 client.Discord = Discord;
-
 client.fs = fs;
+client.DateTime = DateTime;
 
 client.handler = handler;
+client.aliases = aliases;
 
 // Initialize events
 fs.readdir("./events/", (err, files) =>
@@ -51,7 +53,6 @@ client.registry
     .registerDefaultGroups()
     .registerDefaultCommands({
         ping: false,
-        help: false,
         unknownCommand: false
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
