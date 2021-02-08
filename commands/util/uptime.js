@@ -22,7 +22,7 @@ module.exports = class extends Command
     // Initialize Discord embed and basic variables
     const embed = new this.client.Discord.MessageEmbed();
     var x, send = [],
-      color = this.client.handler.colorize(this.client);
+      color = this.client.handler.colorize();
 
     // Convert client uptime from ms to seconds
     let totalSeconds = (this.client.uptime / 1000);

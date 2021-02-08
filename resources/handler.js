@@ -1,4 +1,4 @@
-// Custom error handling management
+// Custom error handling management (c) Ravalle
 exports.throw = async (client, message, err) =>
 {
   // Error notification
@@ -30,11 +30,12 @@ exports.throw = async (client, message, err) =>
 }
 
 // Picks a random color
-exports.colorize = (client) =>
+exports.colorize = () =>
 {
   return Math.floor(Math.random()*16777215).toString(16);
 }
 
+// Acquire a user id from a mention
 exports.getUserFromMention = (client, mention) => {
 	// The id is the first and only match found by the RegEx.
 	const matches = mention.match(/^<@!?(\d+)>$/);
@@ -47,4 +48,11 @@ exports.getUserFromMention = (client, mention) => {
 	const id = matches[1];
 
 	return client.users.cache.get(id);
+}
+
+// Fumi time formatting
+exports.LOCAL_TIME_FORMAT = {
+  year: '2-digit', month: '2-digit', day: '2-digit',
+  hour: '2-digit', minute: '2-digit', second: '2-digit',
+  hour12: false, timeZone: 'Japan'
 }

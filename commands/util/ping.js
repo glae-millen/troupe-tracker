@@ -23,7 +23,7 @@ module.exports = class extends Command
 			// Initalize Discord embed and required variables
 			const embed = new MessageEmbed();
 			const ping = Date.now() - message.createdTimestamp;
-			const color = this.client.handler.colorize(this.client);
+			const color = this.client.handler.colorize();
 
 			// Build the embed
 			embed

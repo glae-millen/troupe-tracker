@@ -1,5 +1,5 @@
 // Version tracking
-const version = "0.0.1-b"
+const version = "0.0.2";
 
 // Initialize environment variables
 require('dotenv').config();
@@ -31,6 +31,7 @@ client.DateTime = DateTime;
 
 client.handler = handler;
 client.aliases = aliases;
+client.version = version;
 
 // Initialize events
 fs.readdir("./events/", (err, files) =>

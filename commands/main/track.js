@@ -1,4 +1,3 @@
-// track,js
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 
@@ -12,8 +11,10 @@ module.exports = class extends Command
         group: 'main',
         memberName: 'track',
         aliases: ['t'],
-        description: 'Track concurrent attempts of troupe members',
-        examples: []
+        description: 'Various tracking tools',
+        examples: [`${client.commandPrefix}track attempts self 1 2`,
+                   `${client.commandPrefix}t a s 1 2`,
+                   `${client.commandPrefix}t a @marsx 1 2`]
       });
   }
 
@@ -21,20 +22,16 @@ module.exports = class extends Command
   {
     try
     {
-      // Delete command message
-      message.delete({timeout: 100});
-
       // Set time
-      var time = this.client.DateTime.local().toLocaleString({
-        year: '2-digit', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit',
-        hour12: false, timeZone: 'Japan'
-      });
+      var time = this.client.DateTime.local();
 
       // Initialize args
       const args = message.content.slice(this.client.commandPrefix.length).trim().split(/ +/g);
       var type = args[1];
       args.splice(0, 2);
+
+      // Initialize embed
+      const embed = new MessageEmbed();
 
       // Initialize aliases
       this.client.aliases.forEach(alias =>
@@ -45,10 +42,9 @@ module.exports = class extends Command
 
       // Redirect to subcommands
       switch (type) {
-        case "attempts": trackAttempts(this.client, message, args, time); break;
-        case "progress": trackProgress(this.client, message); break;
-        case "rank": trackRank(this.client, message); break;
-        case "time": trackTime(this.client, message); break;
+        case "attempts": trackAttempts(this.client, message, embed, args, time); break;
+        case "progress": trackProgress(this.client, message, embed); break;
+        case "rank": trackRank(this.client, message, embed); break;
         default: return;
       }
     }
@@ -60,7 +56,7 @@ module.exports = class extends Command
   }
 }
 
-trackAttempts = async(client, message, args, time) =>
+trackAttempts = async(client, message, embed, args, time) =>
 {
   // Return if no arguments
   if (args[0] === undefined)
@@ -70,27 +66,32 @@ trackAttempts = async(client, message, args, time) =>
   if (args.length > 3)
     return message.reply("Too many arguments.");
 
-  // Return if invalid arguments
-  // if (typeof args[0])
-  //   return
+  // Initialize variables
+  var mention,
+      serverTime = time.toLocaleString(client.handler.LOCAL_TIME_FORMAT);
+  if (message.mentions.members.first())
+    var mention = message.mentions.members.first();
+  const channel = message.channel;
 
-  console.log(typeof args[0]);
-  console.log(typeof args[1]);
-  console.log(typeof args[2]);
+  // Return if invalid arguments
+  if (!mention && !["self", "s"].includes(args[0]))
+    return message.reply("Invalid argument. Please mention a user or indicate [self, s] if tracking for yourself.");
+  if (args[1] && ((parseInt(args[1]) > 3 || parseInt(args[1]) < 0) || isNaN(parseInt(args[1]))))
+    return message.reply("Invalid argument. Tries must be within [0-3].");
+  if (args[2] && ((parseInt(args[2]) > 5 || parseInt(args[2]) < 0) || isNaN(parseInt(args[2]))))
+    return message.reply("Invalid argument. Overflow must be within [0-5].");
+
+  // Delete command message
+  message.delete({timeout: 100});
 
   // Argument reassignment
   var pointer = args[0],
-      tries = args[1],
-      overflow = args[2];
-
-  // Initialize variables
-  var mention = message.mentions.members.first();
-  const embed = new MessageEmbed(),
-        channel = message.channel;
+      tries = args[1] ?? 0,
+      overflow = args[2] ?? 0;
 
   // Substitute mentions if point to self
   if (["self", "s"].includes(pointer))
-    mention = message.author;
+  mention = message.author;
 
   // Search for previous tracking on specified member
   let res = await channel.messages.fetch({limit: 100});
@@ -120,21 +121,16 @@ trackAttempts = async(client, message, args, time) =>
   embed.setColor("55aa55")
        .setTitle("Attempt tracker")
        .setDescription(`${mention} has ${tries} tries and ${overflow} overflow remaining.`)
-       .setFooter(`Recorded at ${time} (Server Time).`);
+       .setFooter(`Recorded at ${serverTime} (Server Time).`);
   message.channel.send(embed).catch(console.error);
 }
 
-trackProgress = (client, message) =>
+trackProgress = (client, message, embed) =>
 {
   message.channel.send("Working");
 }
 
-trackRank = (client, message) =>
-{
-  message.channel.send("Working");
-}
-
-trackTime = (client, message) =>
+trackRank = (client, message, embed) =>
 {
   message.channel.send("Working");
 }
