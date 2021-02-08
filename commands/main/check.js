@@ -6,9 +6,9 @@ module.exports = class extends Command
   {
     super(client,
       {
-        name: 'history',
+        name: 'check',
         group: 'main',
-        memberName: 'history',
+        memberName: 'check',
         aliases: ['c','ch'],
         description: 'Retrieve most recent tracking data',
         examples: []
