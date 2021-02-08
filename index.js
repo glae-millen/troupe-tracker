@@ -1,5 +1,5 @@
 // Version tracking
-const version = "0.0.2";
+const version = "0.0.2-a";
 
 // Initialize environment variables
 require('dotenv').config();
@@ -8,6 +8,7 @@ require('dotenv').config();
 const Discord = require("discord.js");
 const { CommandoClient } = require('discord.js-commando');
 const { DateTime } = require("luxon");
+const { Settings } = require("luxon");
 
 const path = require('path');
 const fetch = require('node-fetch');
@@ -23,6 +24,9 @@ const client = new CommandoClient(
 	owner: process.env.OWNER_ID,
   disableMentions: 'everyone',
 });
+
+// Initialize timezone
+Settings.defaultZoneName = "utc+9";
 
 // Bind dependencies to client for sub-unit usage
 client.Discord = Discord;

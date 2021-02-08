@@ -76,7 +76,7 @@ checkTime = (client, message, embed, time) =>
 {
   // Calculate time until reset (c) Akira
   var reset = time.set({
-    hour: 4, minute: 0, second: 0
+    hour: 5, minute: 0, second: 0
   });
 
   if (reset < time)
