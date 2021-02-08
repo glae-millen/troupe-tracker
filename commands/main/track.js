@@ -64,11 +64,19 @@ trackAttempts = async(client, message, args, time) =>
 {
   // Return if no arguments
   if (args[0] === undefined)
-  return message.reply("No arguments detected.");
+    return message.reply("No arguments detected.");
 
   // Return if too many arguments
   if (args.length > 3)
-  return message.reply("Too many arguments.");
+    return message.reply("Too many arguments.");
+
+  // Return if invalid arguments
+  // if (typeof args[0])
+  //   return
+
+  console.log(typeof args[0]);
+  console.log(typeof args[1]);
+  console.log(typeof args[2]);
 
   // Argument reassignment
   var pointer = args[0],
@@ -89,6 +97,7 @@ trackAttempts = async(client, message, args, time) =>
   let pointerBuffer = await res.filter(message => {
     if (message.author.id === process.env.BOT_ID && message.embeds.length > 0)
     {
+      if (message.embeds[0].description === null) return;
       let mostRecent = message.embeds[0].description.split(/ +/g).shift();
       let fetchedUser = client.handler.getUserFromMention(client, mostRecent);
       if (fetchedUser === undefined) return;

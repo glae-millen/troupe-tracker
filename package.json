@@ -1,6 +1,6 @@
 {
   "name": "troupe-tracker",
-  "version": "0.0.1-a",
+  "version": "0.0.1-b",
   "description": "Troupe progress tracker",
   "main": "index.js",
   "dependencies": {
@@ -14,21 +14,28 @@
   "engines": {
     "node": "14.x"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.19.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
-  },
-  "eslintConfig": {
-      "env": {
-          "browser": true,
-          "node": true
-      }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/glae-millen/troupe-tracker.git"
   },
   "author": "glae-millen",
-  "license": "ISC"
+  "license": "ISC",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    }
+  }
 }
