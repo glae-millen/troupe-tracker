@@ -1,21 +1,20 @@
 // Version tracking
-const version = "0.0.2-a";
+const version = "0.0.3";
 
 // Initialize environment variables
 require('dotenv').config();
 
 // Initialize dependencies
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const { CommandoClient } = require('discord.js-commando');
-const { DateTime } = require("luxon");
-const { Settings } = require("luxon");
+const { DateTime, Settings } = require('luxon');
 
 const path = require('path');
-const fetch = require('node-fetch');
 const fs = require('fs');
+const Enmap = require('enmap');
 
-const handler = require("./resources/handler.js");
-const aliases = require("./resources/aliases.json");
+const handler = require('./resources/handler.js');
+const aliases = require('./resources/aliases.json');
 
 // Initialize the Commando client
 const client = new CommandoClient(

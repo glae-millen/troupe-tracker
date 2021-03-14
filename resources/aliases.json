@@ -14,5 +14,13 @@
   {
     "name": "time",
     "aliases": ["reset", "timeleft", "t"]
+  },
+  {
+    "name": "tracker",
+    "aliases": ["tr"]
+  },
+  {
+    "name": "reminder",
+    "aliases": ["re"]
   }
 ]
