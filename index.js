@@ -1,5 +1,5 @@
 // Version tracking
-const version = "0.0.3";
+const version = "0.0.4";
 
 // Initialize environment variables
 require('dotenv').config();
@@ -58,7 +58,9 @@ client.registry
     ])
     .registerDefaultGroups()
     .registerDefaultCommands({
+				help: false,
         ping: false,
+				prefix: false,
         unknownCommand: false
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));

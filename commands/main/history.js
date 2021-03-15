@@ -10,7 +10,7 @@ module.exports = class extends Command
         group: 'main',
         memberName: 'history',
         aliases: ['h','hist'],
-        description: 'Retrieve available tracking history',
+        description: 'Retrieves available tracking history.',
         examples: []
       });
   }

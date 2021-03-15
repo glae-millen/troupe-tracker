@@ -12,7 +12,7 @@ module.exports = class extends Command
         group: 'main',
         memberName: 'check',
         aliases: ['c','ch'],
-        description: 'Retrieve time and most recent tracking data',
+        description: 'Retrieves time and most recent tracking data.',
         examples: [`${client.commandPrefix}check time`,
                    `${client.commandPrefix}c t`]
       });
@@ -92,11 +92,12 @@ checkTime = (client, message, embed, time) =>
       currentSec = Math.floor(i.length('seconds') - (60 * currentMin) - (3600 * currentHour));
 
   // Time formatting
-  var serverTime = time.toLocaleString(client.handler.LOCAL_TIME_FORMAT);
+  var serverTime = time.toFormat(client.handler.FUMI_DATETIME);
   var timeLeft = `${currentHour}h ${currentMin}m ${currentSec}s`;
 
   // Build embed
-  embed.setColor('55aa55')
+  embed
+    .setColor('55aa55')
     .addField(`Server time`, `${serverTime}`)
     .addField(`Time until reset`, `${timeLeft}`)
     .setFooter('Server resets at 5:00 am daily (Server Time).');

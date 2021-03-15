@@ -11,7 +11,7 @@ module.exports = class extends Command
       name: 'ping',
       group: 'util',
       memberName: 'ping',
-      description: "Shows the bot's response time",
+      description: "Shows the bot's response time.",
       examples: [`${client.commandPrefix}ping`]
     });
   }
