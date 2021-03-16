@@ -181,11 +181,11 @@ trackRank = async (client, message, embed, args, time) =>
 
   // --TEMP-- If command is invoked in g4y rights server...
   // Initialize tracking channel
-  // const trChannel = client.channels.cache.get('809039278537572362');
-  //
-  // // Update progress board
-  // if (message.channel.guild.id == '795096554628972554')
-  //   trChannel.setName(pin).catch(console.error);
+  const trChannel = client.channels.cache.get('809039278537572362');
+
+  // Update progress board
+  if (message.channel.guild.id == '795096554628972554')
+    trChannel.setName(pin).catch(console.error);
 
   // Build embed
   embed
