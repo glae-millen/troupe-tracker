@@ -126,10 +126,10 @@ trackProgress = async (client, message, embed, args, time) =>
   // Argument reassignment
   let pin,
       wave = args[0],
-      boss = args[1].toLowerCase(),
-      health = args[2].toLowerCase() ?? 'full';
-  boss = boss.charAt(0).toUpperCase() + boss.slice(1);
-  health = health.charAt(0).toUpperCase() + health.slice(1);
+      boss = args[1],
+      health = args[2] ?? 'full';
+  boss = boss.charAt(0).toUpperCase() + boss.slice(1).toLowerCase();
+  health = health.charAt(0).toUpperCase() + health.slice(1).toLowerCase();
   pin = `W${wave} ${boss} (${health})`;
 
   // Search and delete most recent tracking entry
@@ -181,11 +181,11 @@ trackRank = async (client, message, embed, args, time) =>
 
   // --TEMP-- If command is invoked in g4y rights server...
   // Initialize tracking channel
-  const trChannel = client.channels.cache.get('809039278537572362');
-
-  // Update progress board
-  if (message.channel.guild.id == '795096554628972554')
-    trChannel.setName(pin).catch(console.error);
+  // const trChannel = client.channels.cache.get('809039278537572362');
+  //
+  // // Update progress board
+  // if (message.channel.guild.id == '795096554628972554')
+  //   trChannel.setName(pin).catch(console.error);
 
   // Build embed
   embed
