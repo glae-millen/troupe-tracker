@@ -1,5 +1,5 @@
 // Version tracking
-const version = "0.0.4-a";
+const version = "0.0.4-b";
 
 // Initialize environment variables
 require('dotenv').config();

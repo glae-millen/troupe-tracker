@@ -1,6 +1,6 @@
 {
   "name": "troupe-tracker",
-  "version": "0.0.4-a",
+  "version": "0.0.4-b",
   "description": "Troupe progress tracker",
   "main": "index.js",
   "dependencies": {

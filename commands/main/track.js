@@ -64,16 +64,24 @@ trackAttempts = async (client, message, embed, args, time) =>
   const serverTime = time.toFormat(client.handler.FUMI_DATETIME),
         channel = message.channel;
   let mention;
+
+  // Acquire mention
   if (message.mentions.members.first())
     mention = message.mentions.members.first();
+  // Substitute mentions if point to self
+  else if (["self", "s"].includes(args[0]))
+    mention = message.author;
+  // Substitute mentions if ID is provided
+  else if (args[0].length == 18)
+    mention = client.users.cache.get(args[0]);
 
   // Argument validation
   if (args[0] === undefined)
     return message.reply("No arguments detected.");
   if (args.length > 3)
     return message.reply("Too many arguments.");
-  if (!mention && !["self", "s"].includes(args[0]))
-    return message.reply("Invalid argument. Please mention a user or indicate [self, s] if tracking for yourself.");
+  if (!mention)
+    return message.reply("Invalid argument. Please mention a user, provide an id, or indicate [self, s] if tracking for yourself.");
   if (args[1] && ((parseInt(args[1]) > 3 || parseInt(args[1]) < 0) || isNaN(parseInt(args[1]))))
     return message.reply("Invalid argument. Tries must be within [0-3].");
   if (args[2] && ((parseInt(args[2]) > 5 || parseInt(args[2]) < 0) || isNaN(parseInt(args[2]))))
@@ -83,13 +91,8 @@ trackAttempts = async (client, message, embed, args, time) =>
   message.delete({timeout: 100});
 
   // Argument reassignment
-  let pointer = args[0],
-      tries = args[1] ?? 0,
+  let tries = args[1] ?? 0,
       overflow = args[2] ?? 0;
-
-  // Substitute mentions if point to self
-  if (["self", "s"].includes(pointer))
-  mention = message.author;
 
   // Search and delete most recent tracking entry
   client.handler.update(client, channel, mention.id, true);
@@ -113,6 +116,8 @@ trackProgress = async (client, message, embed, args, time) =>
     return message.reply("Too many arguments.");
   if (args[0] && ((parseInt(args[0]) < 0) || isNaN(parseInt(args[0]))))
     return message.reply("Invalid argument. Wave must be a positive integer.");
+  if (args[1].match(/\d/))
+    return message.reply("Invalid argument. Please indicate a valid boss.");
   if (args[2] && ((parseInt(args[2]) < 0) || isNaN(parseInt(args[2]))) && args[2].toLowerCase() != 'full')
     return message.reply("Invalid argument. Health must be a positive integer.");
 
